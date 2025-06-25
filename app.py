@@ -70,6 +70,23 @@ def process():
         print("Error processing image:", e)
         return "Processing error", 500
 
+@app.route("/cleanup", methods=["GET"])
+def cleanup():
+    import time
+    deleted = []
+    now = time.time()
+    for filename in os.listdir(app.config["UPLOAD_FOLDER"]):
+        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        if os.path.isfile(filepath):
+            if now - os.path.getmtime(filepath) > 12 * 60 * 60:
+                try:
+                    os.remove(filepath)
+                    deleted.append(filename)
+                except Exception as e:
+                    print(f"Error deleting {filename}: {e}")
+    return f"Deleted {len(deleted)} files", 200
+
+
 def open_browser():
     webbrowser.open_new("http://127.0.0.1:5000")
 
