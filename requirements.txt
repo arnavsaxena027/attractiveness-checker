@@ -1,5 +1,5 @@
 flask
 transformers==4.46.3
-torch==2.0.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+torch==2.5.0
 pillow
 opencv-python
