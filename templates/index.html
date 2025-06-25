@@ -110,10 +110,9 @@
       </button>
     </div>
 
-<form id="uploadForm" action="/process" method="POST" enctype="multipart/form-data">
-  <input type="file" accept="image/*" id="fileInput" name="image" capture />
-</form>
-
+    <form id="uploadForm" action="/process" method="POST" enctype="multipart/form-data">
+      <input type="file" accept="image/*" id="fileInput" name="image" />
+    </form>
   </div>
 
   <div class="modal" id="modal">
@@ -129,22 +128,19 @@
   <div class="footer">Arnav Saxena</div>
 
   <script>
-      function handleUpload(useCamera) {
-        fetch("/cleanup", { method: "POST" }); // 🔥 Clean up server-side uploads
+    function handleUpload(useCamera) {
+      const fileInput = document.getElementById('fileInput');
+      const modal = document.getElementById('modal');
 
-        const fileInput = document.getElementById('fileInput');
-        const modal = document.getElementById('modal');
-
-        modal.style.display = 'none';
-        if (useCamera) {
-          fileInput.setAttribute('capture', 'environment');
-        } else {
-          fileInput.removeAttribute('capture');
-        }
-
-        fileInput.click();
+      modal.style.display = 'none';
+      if (useCamera) {
+        fileInput.setAttribute('capture', 'environment');
+      } else {
+        fileInput.removeAttribute('capture');
       }
 
+      fileInput.click();
+    }
 
     document.getElementById('fileInput').addEventListener('change', function () {
       document.getElementById('uploadForm').submit();

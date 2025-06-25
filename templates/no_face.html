@@ -21,6 +21,7 @@
     img {
       width: 200px;
       margin-bottom: 2rem;
+      border-radius: 0.5rem;
     }
 
     a {
@@ -40,7 +41,7 @@
 <body>
   <h2>No Face Detected 😕</h2>
   <p>Please upload a clear image where your face is visible.</p>
-  <img src="{{ image_url }}" alt="Uploaded image had no face" />
+  <img src="{{ url_for('serve_image', image_id=image_id) }}" alt="Uploaded image had no face" />
   <br>
   <a href="/">Try Again</a>
 </body>
