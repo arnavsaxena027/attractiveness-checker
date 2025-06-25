@@ -7,6 +7,9 @@ import webbrowser
 import threading
 import face_recognition
 import random
+import cv2
+import numpy as np
+
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "static/uploads"
@@ -30,18 +33,17 @@ def process():
     filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     file.save(filepath)
 
-    # Check for face
-    try:
-        image_np = face_recognition.load_image_file(filepath)
-        face_locations = face_recognition.face_locations(image_np)
 
-        if len(face_locations) == 0:
-            image_url = f"/static/uploads/{filename}"
-            return render_template("no_face.html", image_url=image_url)
+# Check for face using OpenCV
+    cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+    gray = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
 
-    except Exception as e:
-        print("Face detection error:", e)
-        return "Face detection failed", 500
+    if len(faces) == 0:
+        image_url = "/static/blank.png"
+        return render_template("no_face.html", image_url=image_url)
+
 
     # Run attractiveness model
     try:
