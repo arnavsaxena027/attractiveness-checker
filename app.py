@@ -5,7 +5,6 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 from werkzeug.utils import secure_filename
 import webbrowser
 import threading
-import face_recognition
 import random
 import cv2
 import numpy as np
