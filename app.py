@@ -33,7 +33,6 @@ def process():
     file.save(filepath)
 
 
-# Check for face using OpenCV
     cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     gray = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
@@ -44,7 +43,6 @@ def process():
         return render_template("no_face.html", image_url=image_url)
 
 
-    # Run attractiveness model
     try:
         image = Image.open(filepath).convert("RGB")
         inputs = processor(images=image, return_tensors="pt")
@@ -53,13 +51,11 @@ def process():
             probs = torch.nn.functional.softmax(logits, dim=-1)[0]
         score_raw = probs[model.config.label2id["attractive"]].item() * 100
 
-        # Adjust score if too low
         if score_raw < 65:
             score = random.randint(65, 85)
         else:
             score = int(round(score_raw))
 
-        # Compliment based on score
         if score >= 86:
             compliment = "You're absolutely stunning! 🌟"
         elif score >= 70:
