@@ -39,7 +39,7 @@ def process():
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
 
     if len(faces) == 0:
-        image_url = "/static/blank.png"
+        image_url = f"/static/uploads/{filename}"
         return render_template("no_face.html", image_url=image_url)
 
 
