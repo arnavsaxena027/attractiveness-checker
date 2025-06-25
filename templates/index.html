@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attractiveness Test</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background-color: #b3cfd0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      position: relative;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .linkedin-btn {
+      background-color: #0077b5;
+      color: #fff;
+    }
+
+    .upload-btn {
+      background-color: #fff;
+      color: #0077b5;
+      border: 2px solid #0077b5;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: none;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin: 1rem;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.9rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Attractiveness Test</h1>
+    <div class="button-group">
+      <button class="linkedin-btn" onclick="window.open('https://www.linkedin.com/in/arnavsaxena027/', '_blank')">
+        LinkedIn
+      </button>
+      <button class="upload-btn" onclick="document.getElementById('modal').style.display = 'flex'">
+        Take Test
+      </button>
+    </div>
+
+<!-- AFTER -->
+<form id="uploadForm" action="http://127.0.0.1:5000/process" method="POST" enctype="multipart/form-data">
+  <input type="file" accept="image/*" id="fileInput" name="image" capture />
+    </form>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <p>Choose an option:</p>
+      <button onclick="handleUpload(false)">Upload from Device</button>
+      <button onclick="handleUpload(true)">Open Camera</button>
+      <br />
+      <button onclick="document.getElementById('modal').style.display='none'">Cancel</button>
+    </div>
+  </div>
+
+  <div class="footer">Arnav Saxena</div>
+
+  <script>
+      function handleUpload(useCamera) {
+        fetch("/cleanup", { method: "POST" }); // 🔥 Clean up server-side uploads
+
+        const fileInput = document.getElementById('fileInput');
+        const modal = document.getElementById('modal');
+
+        modal.style.display = 'none';
+        if (useCamera) {
+          fileInput.setAttribute('capture', 'environment');
+        } else {
+          fileInput.removeAttribute('capture');
+        }
+
+        fileInput.click();
+      }
+
+
+    document.getElementById('fileInput').addEventListener('change', function () {
+      document.getElementById('uploadForm').submit();
+    });
+  </script>
+</body>
+</html>

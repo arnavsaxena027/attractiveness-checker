@@ -1,0 +1,48 @@
+<!-- templates/no_face.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>No Face Detected</title>
+  <style>
+    body {
+      background-color: #f7eaea;
+      font-family: Arial, sans-serif;
+      color: #333;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    h2 {
+      color: #cc0000;
+      margin-bottom: 1rem;
+    }
+
+    img {
+      width: 200px;
+      margin-bottom: 2rem;
+    }
+
+    a {
+      background-color: #0077b5;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    a:hover {
+      background-color: #005f8d;
+    }
+  </style>
+</head>
+<body>
+  <h2>No Face Detected 😕</h2>
+  <p>Please upload a clear image where your face is visible.</p>
+  <img src="{{ image_url }}" alt="Uploaded image had no face" />
+  <br>
+  <a href="/">Try Again</a>
+</body>
+</html>
