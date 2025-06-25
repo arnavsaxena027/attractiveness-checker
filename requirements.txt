@@ -3,3 +3,4 @@ transformers==4.46.3
 torch==2.5.0
 pillow
 opencv-python
+gunicorn
