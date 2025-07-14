@@ -36,7 +36,7 @@ pip install flask tensorflow opencv-python
 ```
 ---
 
-## How to uae
+## How to use
 
 - git clone https://github.com/arnavsaxena027/attractiveness-checker.git
 - cd attractiveness-checker
