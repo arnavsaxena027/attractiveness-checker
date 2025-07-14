@@ -34,6 +34,8 @@ Install Python dependencies:
 ```bash
 pip install flask tensorflow opencv-python
 ```
+---
+
 ## How to uae
 
 - git clone https://github.com/arnavsaxena027/attractiveness-checker.git
